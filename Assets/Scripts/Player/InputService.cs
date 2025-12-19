@@ -6,17 +6,15 @@ public class InputService : MonoBehaviour
     private const string Jump = "Jump";
     private const string Attack = "Fire1";
 
-    public event Action JumpBtnDown;
-    public event Action AttackBtnPressed;
+    public event Action JumpButtonDown;
+    public event Action AttackButtonPressed;
     
     public void GetInput()
     {
         if (Input.GetButtonDown(Jump))
-            JumpBtnDown?.Invoke();
+            JumpButtonDown?.Invoke();
 
         if (Input.GetButton(Attack))
-        {
-            AttackBtnPressed?.Invoke();
-        }
+            AttackButtonPressed?.Invoke();        
     }
 }

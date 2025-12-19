@@ -1,20 +1,21 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Fire : MonoBehaviour, IObjectable<Fire>, IOpponentable
+public class Fire : MonoBehaviour, IPoolable<Fire>, IDamageable
 {
     public event Action<Fire> DestroyObj;
 
     [SerializeField] private float _speed = 2f;
-    [SerializeField] Vector3 _direction;
     [SerializeField] LayerMask _opponentLayerMask;
 
     private float _fireLifeTime = 3f;
 
     private Coroutine _coroutine;
     private Rigidbody2D _rigidBody;
+    private Vector3 _direction;
 
     private void Awake()
     {
@@ -42,11 +43,16 @@ public class Fire : MonoBehaviour, IObjectable<Fire>, IOpponentable
         if ((_opponentLayerMask & (1 << collision.gameObject.layer)) != 0)
         {
             DestroyObj?.Invoke(this);
-            collision.GetComponent<IOpponentable>().Dead();
+            collision.GetComponent<IDamageable>().Die();
         }
     }
 
-    public void Dead()
+    public void SetDirection(Vector3 direction)
+    {
+        _direction = direction;
+    }
+
+    public void Die()
     {
         DestroyObj?.Invoke(this);
     }

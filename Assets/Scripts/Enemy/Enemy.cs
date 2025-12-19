@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Attacker))]
-public class Enemy : MonoBehaviour, IObjectable<Enemy>, IOpponentable
+public class Enemy : MonoBehaviour, IPoolable<Enemy>, IDamageable
 {
     public event Action<Enemy> DestroyObj;
 
@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour, IObjectable<Enemy>, IOpponentable
         DestroyObj?.Invoke(this);
     }
 
-    public void Dead()
+    public void Die()
     {
         DestroyObj?.Invoke(this);
     }

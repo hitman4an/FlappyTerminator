@@ -24,7 +24,7 @@ public class Attacker : MonoBehaviour
     private void OnDisable()
     {
         if (_coroutine != null)
-            StopCoroutine(WaitAttackCooldown());
+            StopCoroutine(_coroutine);
     }
 
     public void Attack()

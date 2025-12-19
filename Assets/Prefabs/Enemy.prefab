@@ -5993,6 +5993,7 @@ MonoBehaviour:
   PoolMaxSize: 5
   _offsetX: -1.7
   _offsetY: 1.2
+  _isLeftDirection: 1
 --- !u!114 &8348427607211817100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6019,6 +6020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackCooldown: 1.5
+  _lifeTime: 30
 --- !u!1 &5055522668221959165
 GameObject:
   m_ObjectHideFlags: 0

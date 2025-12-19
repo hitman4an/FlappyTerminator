@@ -6,10 +6,16 @@ public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
+    [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _maxRotationZ;
+    [SerializeField] private float _minRotationZ;
 
     private Vector3 _startPosition;
     private Rigidbody2D _rigidBody;
     private PlayerAnimator _animator;
+
+    private Quaternion _maxRotation;
+    private Quaternion _minRotation;
 
     private void Awake()
     {
@@ -20,6 +26,10 @@ public class PlayerMover : MonoBehaviour
     private void Start()
     {
         _startPosition = transform.position;
+
+        _maxRotation = Quaternion.Euler(0, 0, _maxRotationZ);
+        _minRotation = Quaternion.Euler(0, 0, _minRotationZ);
+
         Reset();
     }
 
@@ -27,6 +37,12 @@ public class PlayerMover : MonoBehaviour
     {
         _animator.SetJump();
         _rigidBody.velocity = new Vector2(_speed, _jumpForce);
+        transform.rotation = _maxRotation;
+    }
+
+    public void Fall()
+    {
+        transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
     }
 
     public void Reset()
